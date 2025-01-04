@@ -1,0 +1,1 @@
+# Quick Launch Menu Documentation

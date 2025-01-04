@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: #1a1a1a;
+        }
+        .banner {
+            width: 1280px;
+            height: 640px;
+            background: linear-gradient(135deg, #2b2b2b 0%, #1a1a1a 100%);
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            overflow: hidden;
+        }
+        .banner::before {
+            content: '';
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, #00ff8822, #00ffff22, #ff00ff22);
+            animation: rotate 10s linear infinite;
+        }
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        .content {
+            position: relative;
+            z-index: 1;
+            text-align: center;
+            background: rgba(0,0,0,0.7);
+            padding: 2rem;
+            border-radius: 1rem;
+            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+        }
+        h1 {
+            font-size: 4rem;
+            margin: 0;
+            background: linear-gradient(45deg, #00ff88, #00ffff, #ff00ff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 1rem;
+        }
+        p {
+            font-size: 1.5rem;
+            margin: 0;
+            opacity: 0.9;
+            max-width: 800px;
+            line-height: 1.6;
+        }
+        .features {
+            display: flex;
+            gap: 2rem;
+            margin-top: 2rem;
+        }
+        .feature {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        .emoji {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="banner">
+        <div class="content">
+            <h1>AHK Collection</h1>
+            <p>Windows Automation & Productivity Suite</p>
+            <div class="features">
+                <div class="feature">
+                    <span class="emoji">⚡</span>
+                    <span>AutoHotkey v2</span>
+                </div>
+                <div class="feature">
+                    <span class="emoji">🎮</span>
+                    <span>Custom Hotkeys</span>
+                </div>
+                <div class="feature">
+                    <span class="emoji">📊</span>
+                    <span>System Monitor</span>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html> 

@@ -1,6 +1,17 @@
 # AutoHotkey Scripts Collection 🚀
 
-![AutoHotkey Version](https://img.shields.io/badge/AutoHotkey-v2.0-green.svg) ![Windows](https://img.shields.io/badge/Platform-Windows-blue.svg) ![License](https://img.shields.io/badge/License-MIT-yellow.svg) ![Status](https://img.shields.io/badge/Status-Active-success.svg)
+<div align="center">
+  <img src="IMAGES/banner.png" alt="AHK Collection Banner" width="800"/>
+  
+  ![AutoHotkey Version](https://img.shields.io/badge/AutoHotkey-v2.0-green.svg)
+  ![Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue.svg)
+  ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+  ![Status](https://img.shields.io/badge/Status-Active-success.svg)
+  
+  A powerful collection of AutoHotkey v2 scripts for Windows automation and productivity enhancement. Features GIPHY integration, system monitoring, and customizable hotkeys.
+</div>
+
+---
 
 A collection of useful AutoHotkey v2 scripts for Windows productivity enhancement.
 

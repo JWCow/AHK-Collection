@@ -117,4 +117,8 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 - 🤝 Pull requests appreciated
 
 ---
+<<<<<<< HEAD
 Made with ❤️ by the AHK community 
+=======
+Made with ❤️ by the AHK community 
+>>>>>>> 4146029 (Update README with Windows AHK Startup Keys V2 details and GIPHY Picker requirements)

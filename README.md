@@ -50,7 +50,10 @@ An all-in-one script with multiple productivity features:
 2. Clone or download this repository
 3. For GIPHY Picker functionality:
    - Ensure `giphy_picker.html` is in the same directory as `Windows_AHK_Startup_Keys_v2.ahk`
-4. Run the desired script:
+4. To add to Windows Startup (optional):
+   - Double-click `install_startup.bat` to automatically add to startup
+   - Or run it as administrator if the regular method fails
+5. Run the desired script:
    - Use `Windows_AHK_Startup_Keys_v2.ahk` for all features
    - Or run individual scripts from the `individual_scripts` folder
 

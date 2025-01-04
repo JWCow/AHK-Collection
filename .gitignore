@@ -1,0 +1,22 @@
+# AutoHotkey specific
+*.exe
+*.ini
+*.tmp
+*.temp
+
+# Windows specific
+desktop.ini
+Thumbs.db
+ehthumbs.db
+$RECYCLE.BIN/
+
+# IDE/Editor specific
+.vscode/
+.idea/
+*.sublime-workspace
+*.sublime-project
+
+# Script-generated files
+giphy_settings.ini
+menu_settings.ini
+giphy_picker.html 

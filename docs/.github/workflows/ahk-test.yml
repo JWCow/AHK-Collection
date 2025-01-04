@@ -1,0 +1,52 @@
+name: AutoHotkey Script Validation
+
+on:
+  push:
+    branches: [ main ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  validate:
+    runs-on: windows-latest
+    
+    steps:
+    - uses: actions/checkout@v2
+    
+    - name: Download AutoHotkey
+      run: |
+        Invoke-WebRequest -Uri "https://www.autohotkey.com/download/ahk-v2.exe" -OutFile "AutoHotkey_v2.exe"
+    
+    - name: Install AutoHotkey
+      run: |
+        Start-Process -FilePath "AutoHotkey_v2.exe" -ArgumentList "/S" -Wait
+    
+    - name: Validate Scripts
+      run: |
+        $scripts = Get-ChildItem -Path . -Filter *.ahk -Recurse
+        foreach ($script in $scripts) {
+          Write-Host "Validating $($script.FullName)"
+          $result = & "C:\Program Files\AutoHotkey\v2\AutoHotkey.exe" /ErrorStdOut "$($script.FullName)"
+          if ($LASTEXITCODE -ne 0) {
+            Write-Error "Validation failed for $($script.Name)"
+            exit 1
+          }
+        }
+      shell: pwsh
+      
+    - name: Check Script Formatting
+      run: |
+        $scripts = Get-ChildItem -Path . -Filter *.ahk -Recurse
+        foreach ($script in $scripts) {
+          Write-Host "Checking formatting for $($script.FullName)"
+          $content = Get-Content $script.FullName -Raw
+          
+          # Check for basic formatting rules
+          if ($content -match "^\s*$") {
+            Write-Warning "Empty lines found in $($script.Name)"
+          }
+          if ($content -notmatch "#Requires AutoHotkey v2.0") {
+            Write-Warning "Missing #Requires directive in $($script.Name)"
+          }
+        }
+      shell: pwsh 

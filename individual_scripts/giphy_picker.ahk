@@ -134,21 +134,4 @@ LoadWindowPosition() {
     } catch {
         return [(A_ScreenWidth - width) / 2, (A_ScreenHeight - height) / 2]
     }
-}
-
-GetActiveMonitorCenter() {
-    CoordMode("Mouse", "Screen")
-    MouseGetPos(&mouseX, &mouseY)
-    monCount := MonitorGetCount()
-    
-    Loop monCount {
-        MonitorGet(A_Index, &monLeft, &monTop, &monRight, &monBottom)
-        if (mouseX >= monLeft && mouseX <= monRight && mouseY >= monTop && mouseY <= monBottom) {
-            x := monLeft + (monRight - monLeft - width) / 2
-            y := monTop + (monBottom - monTop - height) / 2
-            return [x, y]
-        }
-    }
-    ; Fallback to primary monitor
-    return [(A_ScreenWidth - width) / 2, (A_ScreenHeight - height) / 2]
 } 

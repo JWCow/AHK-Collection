@@ -184,6 +184,7 @@ GetActiveMonitorCenter() {
     }
 }
 
+#HotIf !WinActive("ahk_id " CustomMenuGui.Hwnd)  ; Only apply these hotkeys when NOT in Quick Launch Menu
 $LButton:: {  ; Intercept left click
     global Holding
     if (!Holding) {  ; If not holding, pass through normal clicks
@@ -200,6 +201,7 @@ $LButton Up:: {  ; Handle button release separately
         Holding := false
     }
 }
+#HotIf
 
 ; Volume controls using mouse wheel + Win + Shift
 #+WheelUp:: Send("{Volume_Up}")    ; Win + Shift + Mouse Wheel Up = Volume Up

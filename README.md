@@ -10,6 +10,8 @@ A collection of useful AutoHotkey v2 scripts for Windows productivity enhancemen
   - [Individual Scripts](#individual-scripts-)
 - [Requirements](#requirements-)
 - [Installation](#installation-)
+  - [Quick Install (Recommended)](#quick-install-recommended-)
+  - [Manual Installation](#manual-installation-)
 - [Usage](#usage-)
   - [Windows AHK Startup Keys V2 Usage](#windows-ahk-startup-keys-v2-usage)
   - [Individual Scripts Usage](#individual-scripts-usage)
@@ -46,6 +48,14 @@ An all-in-one script with multiple productivity features:
 - `giphy_picker.html` file in the same directory as the main script
 
 ## Installation 🔧
+
+### Quick Install (Recommended) 📦
+1. Download the latest release ZIP file from the [releases page](../../releases)
+2. Extract the ZIP file to your desired location
+3. Run `install_startup.bat` to add the script to Windows startup (optional)
+4. Double-click `Windows_AHK_Startup_Keys_v2.ahk` to start using
+
+### Manual Installation 🛠️
 1. Install AutoHotkey v2.0 from [official website](https://www.autohotkey.com/)
 2. Clone or download this repository
 3. For GIPHY Picker functionality:

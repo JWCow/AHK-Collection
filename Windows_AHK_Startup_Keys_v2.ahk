@@ -184,7 +184,7 @@ GetActiveMonitorCenter() {
     }
 }
 
-#HotIf !WinActive("ahk_id " CustomMenuGui.Hwnd)  ; Only apply these hotkeys when NOT in Quick Launch Menu
+#HotIf !WinActive("ahk_id " (CustomMenuGui ? CustomMenuGui.Hwnd : ""))  ; Only apply these hotkeys when NOT in Quick Launch Menu
 $LButton:: {  ; Intercept left click
     global Holding
     if (!Holding) {  ; If not holding, pass through normal clicks
@@ -209,33 +209,7 @@ $LButton Up:: {  ; Handle button release separately
 #+MButton:: Send("{Volume_Mute}")   ; Win + Shift + Middle Mouse Button = Mute Toggle
 
 ; Custom Start Menu Implementation
-~LShift:: {  ; Left Shift double-tap
-    static keyPressCount := 0
-    static lastPressTime := 0
-    
-    currentTime := A_TickCount
-    
-    ; If menu is already open, close it
-    if (CustomMenuGui && WinExist("ahk_id " CustomMenuGui.Hwnd)) {
-        CustomMenuGui.Hide()
-        return
-    }
-    
-    ; Check if this is a second press within 400ms
-    if (currentTime - lastPressTime <= 400) {
-        keyPressCount++
-        if (keyPressCount = 2) {
-            ShowCustomMenu()
-            keyPressCount := 0
-        }
-    } else {
-        keyPressCount := 1
-    }
-    
-    lastPressTime := currentTime
-}
-
-~RShift:: {  ; Right Shift double-tap
+~`:: {  ; Backtick double-tap
     static keyPressCount := 0
     static lastPressTime := 0
     

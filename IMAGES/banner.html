@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+    <title>AHK Collection Banner</title>
     <style>
         body {
             margin: 0;
@@ -10,6 +11,7 @@
             align-items: center;
             min-height: 100vh;
             background: #1a1a1a;
+            overflow: hidden;
         }
         .banner {
             width: 1280px;
@@ -23,6 +25,7 @@
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             position: relative;
             overflow: hidden;
+            box-shadow: 0 0 50px rgba(0,0,0,0.5);
         }
         .banner::before {
             content: '';
@@ -31,6 +34,7 @@
             height: 200%;
             background: linear-gradient(45deg, #00ff8822, #00ffff22, #ff00ff22);
             animation: rotate 10s linear infinite;
+            transform-origin: center;
         }
         @keyframes rotate {
             from { transform: rotate(0deg); }
@@ -41,37 +45,64 @@
             z-index: 1;
             text-align: center;
             background: rgba(0,0,0,0.7);
-            padding: 2rem;
-            border-radius: 1rem;
-            box-shadow: 0 0 20px rgba(0,0,0,0.5);
+            padding: 3rem;
+            border-radius: 1.5rem;
+            box-shadow: 0 0 30px rgba(0,0,0,0.7);
+            backdrop-filter: blur(10px);
         }
         h1 {
-            font-size: 4rem;
+            font-size: 5rem;
             margin: 0;
             background: linear-gradient(45deg, #00ff88, #00ffff, #ff00ff);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             margin-bottom: 1rem;
+            text-shadow: 0 0 30px rgba(0,255,136,0.3);
         }
         p {
-            font-size: 1.5rem;
+            font-size: 2rem;
             margin: 0;
             opacity: 0.9;
             max-width: 800px;
             line-height: 1.6;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.5);
         }
         .features {
             display: flex;
-            gap: 2rem;
-            margin-top: 2rem;
+            gap: 3rem;
+            margin-top: 2.5rem;
+            justify-content: center;
         }
         .feature {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.8rem;
+            background: rgba(255,255,255,0.1);
+            padding: 0.8rem 1.5rem;
+            border-radius: 1rem;
+            transition: all 0.3s ease;
+        }
+        .feature:hover {
+            background: rgba(255,255,255,0.15);
+            transform: translateY(-2px);
         }
         .emoji {
-            font-size: 2rem;
+            font-size: 2.5rem;
+            filter: drop-shadow(0 2px 4px rgba(0,0,0,0.3));
+        }
+        .feature span:not(.emoji) {
+            font-size: 1.2rem;
+            font-weight: 500;
+            letter-spacing: 0.5px;
+        }
+        .version {
+            position: absolute;
+            bottom: 1rem;
+            right: 1rem;
+            font-size: 0.9rem;
+            opacity: 0.7;
+            font-family: monospace;
         }
     </style>
 </head>
@@ -95,6 +126,7 @@
                 </div>
             </div>
         </div>
+        <span class="version">v1.1.1</span>
     </div>
 </body>
 </html>

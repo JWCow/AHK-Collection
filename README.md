@@ -4,6 +4,19 @@
 
 A collection of useful AutoHotkey v2 scripts for Windows productivity enhancement.
 
+## Table of Contents 📑
+- [Features](#features-)
+  - [Windows AHK Startup Keys V2](#windows-ahk-startup-keys-v2-)
+  - [Individual Scripts](#individual-scripts-)
+- [Requirements](#requirements-)
+- [Installation](#installation-)
+- [Usage](#usage-)
+  - [Windows AHK Startup Keys V2 Usage](#windows-ahk-startup-keys-v2-usage)
+  - [Individual Scripts Usage](#individual-scripts-usage)
+- [Contributing](#contributing-)
+- [License](#license-)
+- [Acknowledgments](#acknowledgments-)
+
 ## Features 🌟
 
 ### Windows AHK Startup Keys V2 (`Windows_AHK_Startup_Keys_v2.ahk`) 🎮

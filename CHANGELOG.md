@@ -1,5 +1,14 @@
 # Changelog
 
+## [Unreleased]
+
+### Changed
+- Improved Quick Launch Menu layout and styling:
+  - Standardized section headers (size 10, normal weight, white)
+  - Implemented three-column layout for AHK Scripts with compact buttons (90x25)
+  - Adjusted Quick Actions to two columns with larger buttons (135x30)
+  - Fixed padding and spacing for visual consistency
+
 ## [1.1.1] - 2024-01-09
 
 ### Changed

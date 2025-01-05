@@ -246,6 +246,17 @@ HoverOff(control, *) {
     control.Gui.BackColor := "202020"
 }
 
+; Add button specifically for AHK scripts
+AddScriptButton(text, scriptPath, y, column := 0) {
+    global CustomMenuGui
+    buttonWidth := 90
+    spacing := (280 - (buttonWidth * 3)) / 2  ; Calculate spacing for 3 equal columns within 280px
+    x := 10 + (column * (buttonWidth + spacing))  ; Start at x=10 like close button
+    btn := CustomMenuGui.Add("Button", "x" x " y" y " w" buttonWidth " h25", text)
+    btn.SetFont("s9", "Segoe UI")  ; Smaller font for AHK scripts
+    btn.OnEvent("Click", (*) => RunScript(scriptPath))
+}
+
 ShowCustomMenu() {
     global CustomMenuGui, closeButton
     
@@ -263,64 +274,76 @@ ShowCustomMenu() {
     titleBar := CustomMenuGui.Add("Text", "x0 y0 w300 h30 +BackgroundTrans", "")  ; Invisible drag handle
     titleBar.OnEvent("Click", GuiDrag)
     
-    ; Add close button and store reference
-    closeButton := CustomMenuGui.Add("Text", "x275 y5 w20 h20 +BackgroundTrans Center cRed", "×")
-    closeButton.OnEvent("Click", CloseMenu)
-    OnMessage(0x200, HoverCheck)  ; WM_MOUSEMOVE
-    
     CustomMenuGui.SetFont("s12 w700 cWhite", "Segoe UI")
     CustomMenuGui.Add("Text", "x10 y5 w260 h30", "Quick Launch Menu")
     
+    ; Add close button as a full-width button
+    CustomMenuGui.SetFont("s10", "Segoe UI")
+    closeButton := CustomMenuGui.Add("Button", "x10 y35 w280 h25", "Close Menu")
+    closeButton.OnEvent("Click", CloseMenu)
+    
     ; Add system info
-    CustomMenuGui.SetFont("s9 cWhite", "Segoe UI")
+    CustomMenuGui.SetFont("s10 w400 cWhite", "Segoe UI")  ; Size 10, normal weight, white
     battery := GetBatteryStatus()
     cpu := GetCPULoad()
     memory := GetMemoryStatus()
     
-    CustomMenuGui.Add("Text", "x10 y40 w280", "System Status:")
-    CustomMenuGui.Add("Text", "x20 y60 w270", "CPU: " cpu "% | RAM: " memory "% | Battery: " battery "%")
+    CustomMenuGui.Add("Text", "x10 y70 w280", "System Status:")
+    CustomMenuGui.Add("Text", "x20 y90 w270", "CPU: " cpu "% | RAM: " memory "% | Battery: " battery "%")
     
-    ; Add buttons with icons
-    CustomMenuGui.SetFont("s10 w400", "Segoe UI")
-    y := 100
+    ; Initialize y position for sections
+    y := 120
     
     ; AHK Scripts Section
-    CustomMenuGui.Add("Text", "x10 y" y " w280 h20 cWhite", "AHK Scripts:")
+    CustomMenuGui.SetFont("s10 w400 cWhite", "Segoe UI")  ; Size 10, normal weight, white
+    CustomMenuGui.Add("Text", "x10 y" y " w280 h20", "AHK Scripts:")
     y += 25
     
-    ; Get list of AHK scripts
+    ; Get list of AHK scripts and arrange in three columns
     scriptPath := "E:\OneDrive\Documents\Adobe\Python\AutoHotKey AHK\individual_scripts"
+    scripts := []
     Loop Files, scriptPath "\*.ahk" {
-        scriptName := StrReplace(A_LoopFileName, ".ahk")
-        AddScriptButton("🔄 " scriptName, A_LoopFilePath, y)
-        y += 35
+        scripts.Push({name: StrReplace(A_LoopFileName, ".ahk"), path: A_LoopFilePath})
     }
-    y += 10
+    
+    ; Calculate rows needed (ceiling of scripts.Length / 3)
+    rows := Ceil(scripts.Length / 3)
+    startY := y
+    
+    ; Add scripts in three columns
+    For i, script in scripts {
+        row := Floor((i - 1) / 3)
+        col := Mod(i - 1, 3)
+        currentY := startY + (row * 30)
+        AddScriptButton(script.name, script.path, currentY, col)
+    }
+    
+    ; Update y position for next section
+    y := startY + (rows * 30) + 10
     
     ; Quick Actions Section
-    CustomMenuGui.Add("Text", "x10 y" y " w280 h20 cWhite", "Quick Actions:")
+    CustomMenuGui.SetFont("s10 w400 cWhite", "Segoe UI")  ; Size 10, normal weight, white
+    CustomMenuGui.Add("Text", "x10 y" y " w280 h20", "Quick Actions:")
     y += 25
     
-    AddMenuButton("🔊 Sound Mixer", "SndVol", y)
+    ; Add Quick Actions in two columns (existing code)
+    AddMenuButton("🔊 Sound Mixer", "SndVol", y, false)
+    AddMenuButton("⚙️ Settings", "ms-settings:", y, true)
     y += 35
-    AddMenuButton("⚙️ Settings", "ms-settings:", y)
+    AddMenuButton("📝 Notepad", "notepad.exe", y, false)
+    AddMenuButton("🌐 Browser", "chrome.exe", y, true)
     y += 35
-    AddMenuButton("📝 Notepad", "notepad.exe", y)
-    y += 35
-    AddMenuButton("🌐 Browser", "chrome.exe", y)
-    y += 35
-    AddMenuButton("📂 File Explorer", "explorer.exe", y)
-    y += 35
-    AddMenuButton("⌨️ Terminal", "wt.exe", y)
+    AddMenuButton("📂 File Explorer", "explorer.exe", y, false)
+    AddMenuButton("⌨️ Terminal", "wt.exe", y, true)
     y += 45
     
     ; System Controls
-    CustomMenuGui.Add("Text", "x10 y" y " w280 h20 cWhite", "System Controls:")
+    CustomMenuGui.SetFont("s10 w400 cWhite", "Segoe UI")  ; Size 10, normal weight, white
+    CustomMenuGui.Add("Text", "x10 y" y " w280 h20", "System Controls:")
     y += 25
     
-    AddMenuButton("🔒 Lock PC", "LockWorkStation", y)
-    y += 35
-    AddMenuButton("💤 Sleep", "Sleep", y)
+    AddMenuButton("🔒 Lock PC", "LockWorkStation", y, false)
+    AddMenuButton("💤 Sleep", "Sleep", y, true)
     y += 35
     
     ; Calculate position (use saved position or center on monitor)
@@ -347,6 +370,15 @@ ShowCustomMenu() {
     OnMessage(0x201, WM_LBUTTONDOWN)
 }
 
+; Modify AddMenuButton to support two columns
+AddMenuButton(text, command, y, isRightColumn := false) {
+    global CustomMenuGui
+    buttonWidth := 135  ; Wider buttons for Quick Actions
+    x := isRightColumn ? (10 + buttonWidth + 10) : 10  ; Start at x=10 like close button, 10px between buttons
+    btn := CustomMenuGui.Add("Button", "x" x " y" y " w" buttonWidth " h30", text)
+    btn.OnEvent("Click", (*) => RunCommand(command))
+}
+
 ; Function to handle GUI dragging
 GuiDrag(GuiCtrl, *) {
     try {
@@ -363,20 +395,6 @@ SaveGuiPosition() {
         IniWrite(pos.X, "menu_settings.ini", "Position", "X")
         IniWrite(pos.Y, "menu_settings.ini", "Position", "Y")
     }
-}
-
-; Add button specifically for AHK scripts
-AddScriptButton(text, scriptPath, y) {
-    global CustomMenuGui
-    btn := CustomMenuGui.Add("Button", "x20 y" y " w260 h30", text)
-    btn.OnEvent("Click", (*) => RunScript(scriptPath))
-}
-
-; Add button for regular applications and commands
-AddMenuButton(text, command, y) {
-    global CustomMenuGui
-    btn := CustomMenuGui.Add("Button", "x20 y" y " w260 h30", text)
-    btn.OnEvent("Click", (*) => RunCommand(command))
 }
 
 ; Function to run regular commands

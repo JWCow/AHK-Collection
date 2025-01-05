@@ -1,18 +1,14 @@
-# AHK Collection
+# AutoHotkey Scripts Collection 🚀
 
 <div align="center">
-
-![AHK Collection Banner](IMAGES/banner.png)
-
-[![AutoHotkey Version](https://img.shields.io/badge/AutoHotkey-v2.0-green.svg)](https://www.autohotkey.com/)
-[![Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue.svg)](https://www.microsoft.com/windows)
-[![License](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Release](https://img.shields.io/badge/Release-v1.1.1-orange.svg)](../../releases/latest)
-
-A powerful collection of AutoHotkey v2 scripts for Windows automation and productivity enhancement. Features GIPHY integration, system monitoring, and customizable hotkeys.
-
-[📥 Download Latest Release](../../releases/latest) | [📖 Documentation](docs/) | [🤝 Contributing](CONTRIBUTING.md)
-
+  <img src="IMAGES/banner.png" alt="AHK Collection Banner" width="800"/>
+  
+  ![AutoHotkey Version](https://img.shields.io/badge/AutoHotkey-v2.0-green.svg)
+  ![Windows](https://img.shields.io/badge/Platform-Windows%2010%2F11-blue.svg)
+  ![License](https://img.shields.io/badge/License-MIT-yellow.svg)
+  ![Status](https://img.shields.io/badge/Status-Active-success.svg)
+  
+  A powerful collection of AutoHotkey v2 scripts for Windows automation and productivity enhancement. Features GIPHY integration, system monitoring, and customizable hotkeys.
 </div>
 
 ---

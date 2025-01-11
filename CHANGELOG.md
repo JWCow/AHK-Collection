@@ -8,6 +8,10 @@
   - Implemented three-column layout for AHK Scripts with compact buttons (90x25)
   - Adjusted Quick Actions to two columns with larger buttons (135x30)
   - Fixed padding and spacing for visual consistency
+- Removed mouse holding functionality from main script:
+  - Moved to dedicated `mouse_hold.ahk` in individual scripts
+  - Cleaned up main script by removing global Holding variable
+  - Simplified Escape handler
 
 ## [1.1.1] - 2024-01-09
 

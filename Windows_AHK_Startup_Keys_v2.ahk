@@ -7,7 +7,6 @@ global width := 400
 global height := 600
 global htmlPath := A_ScriptDir "\giphy_picker.html"
 global iniFile := A_ScriptDir "\giphy_settings.ini"
-global Holding := false  ; Declare Holding as global
 global CustomMenuGui := ""  ; For our custom menu
 global closeButton := ""  ; Store reference to close button
 
@@ -121,7 +120,7 @@ Tab:: Send("{Tab}")
 ; Global Escape key handler
 Escape:: {
     ; Check if Quick Launch Menu is open
-    if WinExist("ahk_id " CustomMenuGui.Hwnd) {
+    if (IsObject(CustomMenuGui) && WinExist("ahk_id " CustomMenuGui.Hwnd)) {
         CustomMenuGui.Hide()
         return
     }
@@ -130,14 +129,6 @@ Escape:: {
     if WinActive("GIPHY Picker") {
         WinMinimize("GIPHY Picker")
         WinHide("GIPHY Picker")
-        return
-    }
-    
-    ; Check mouse holding state
-    global Holding
-    if (Holding) {
-        Click("up")
-        Holding := false
         return
     }
 }
@@ -175,39 +166,6 @@ GetActiveMonitorCenter() {
     return [(A_ScreenWidth - width) / 2, (A_ScreenHeight - height) / 2]
 }
 
-; Mouse holding functionality
-^!+`:: {  ; Ctrl + Alt + Shift + ` to start holding down the left mouse button
-    global Holding
-    if (!Holding) {
-        SendInput("{LButton Down}")  ; Use SendInput for more direct control
-        Holding := true
-    }
-}
-
-#HotIf !WinActive("ahk_id " (CustomMenuGui ? CustomMenuGui.Hwnd : ""))  ; Only apply these hotkeys when NOT in Quick Launch Menu
-$LButton:: {  ; Intercept left click
-    global Holding
-    if (!Holding) {  ; If not holding, pass through normal clicks
-        SendInput("{LButton Down}")
-        KeyWait("LButton")
-        SendInput("{LButton Up}")
-    }
-}
-
-$LButton Up:: {  ; Handle button release separately
-    global Holding
-    if (Holding) {
-        SendInput("{LButton Up}")  ; Just release the button
-        Holding := false
-    }
-}
-#HotIf
-
-; Volume controls using mouse wheel + Win + Shift
-#+WheelUp:: Send("{Volume_Up}")    ; Win + Shift + Mouse Wheel Up = Volume Up
-#+WheelDown:: Send("{Volume_Down}") ; Win + Shift + Mouse Wheel Down = Volume Down
-#+MButton:: Send("{Volume_Mute}")   ; Win + Shift + Middle Mouse Button = Mute Toggle
-
 ; Custom Start Menu Implementation
 ~`:: {  ; Backtick double-tap
     static keyPressCount := 0
@@ -216,7 +174,7 @@ $LButton Up:: {  ; Handle button release separately
     currentTime := A_TickCount
     
     ; If menu is already open, close it
-    if (CustomMenuGui && WinExist("ahk_id " CustomMenuGui.Hwnd)) {
+    if (IsObject(CustomMenuGui) && WinExist("ahk_id " CustomMenuGui.Hwnd)) {
         CustomMenuGui.Hide()
         return
     }
@@ -496,4 +454,9 @@ CloseMenu(*) {
     if CustomMenuGui
         CustomMenuGui.Hide()
 }
+
+; Volume controls using mouse wheel + Win + Shift
+#+WheelUp:: Send("{Volume_Up}")    ; Win + Shift + Mouse Wheel Up = Volume Up
+#+WheelDown:: Send("{Volume_Down}") ; Win + Shift + Mouse Wheel Down = Volume Down
+#+MButton:: Send("{Volume_Mute}")   ; Win + Shift + Middle Mouse Button = Mute Toggle
  

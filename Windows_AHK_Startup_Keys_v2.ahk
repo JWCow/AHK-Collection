@@ -117,22 +117,6 @@ Tab:: Send("{Tab}")
 ^Enter:: Send("^c")
 #HotIf
 
-; Global Escape key handler
-Escape:: {
-    ; Check if Quick Launch Menu is open
-    if (IsObject(CustomMenuGui) && WinExist("ahk_id " CustomMenuGui.Hwnd)) {
-        CustomMenuGui.Hide()
-        return
-    }
-    
-    ; Check if GIPHY Picker is active
-    if WinActive("GIPHY Picker") {
-        WinMinimize("GIPHY Picker")
-        WinHide("GIPHY Picker")
-        return
-    }
-}
-
 SaveWindowPosition() {
     pos := WinGetPos("GIPHY Picker")
     IniWrite(pos.X, iniFile, "Window", "X")

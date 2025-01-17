@@ -12,6 +12,10 @@
   - Moved to dedicated `mouse_hold.ahk` in individual scripts
   - Cleaned up main script by removing global Holding variable
   - Simplified Escape handler
+- Removed global Escape key handler:
+  - Eliminated conflicts with other applications' Escape key usage
+  - Quick Launch Menu now toggles exclusively with backtick key
+  - GIPHY Picker continues to toggle with Win+C
 
 ## [1.1.1] - 2024-01-09
 
